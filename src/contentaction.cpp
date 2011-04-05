@@ -100,7 +100,8 @@ void ActionPrivate::trigger(bool) const
     LCA_WARNING << "triggered an invalid action, not doing anything.";
 }
 
-DefaultPrivate::DefaultPrivate(GKeyFile *desktopEntry,
+#ifdef WITH_LIBMEEGOTOUCH
+DefaultPrivate::DefaultPrivate(QSharedPointer<MDesktopEntry> desktopEntry,
                                const QStringList& params, bool valid)
     : desktopEntry(desktopEntry), params(params), valid(valid)
 {
@@ -108,7 +109,6 @@ DefaultPrivate::DefaultPrivate(GKeyFile *desktopEntry,
 
 DefaultPrivate::~DefaultPrivate()
 {
-    g_key_file_free (desktop_entry);
 }
 
 bool DefaultPrivate::isValid() const
@@ -130,6 +130,7 @@ QString DefaultPrivate::icon() const
 {
     return desktopEntry->icon();
 }
+#endif
 
 Action::Action()
     : d(new ActionPrivate())
@@ -152,6 +153,7 @@ Action::Action(ActionPrivate* priv)
 {
 }
 
+#ifdef WITH_LIBMEEGOTOUCH
 /// Creates an Action object which will launch the application defined by \a
 /// desktopFilePath with the given \a params when triggered.
 ///
@@ -193,6 +195,16 @@ Action createAction(QSharedPointer<MDesktopEntry> desktopEntry,
         return Action(new DefaultPrivate(desktopEntry, params, false));
     }
 }
+
+#else
+
+Action createAction(const QString& desktopFilePath, const QStringList& params)
+{
+    // XXX - use GAppInfo
+    return Action();
+}
+
+#endif
 
 Action::~Action()
 {
@@ -254,6 +266,7 @@ Action Action::launcherAction(const QString& app, const QStringList& params)
     return Action();
 }
 
+#ifdef WITH_LIBMEEGOTOUCH
 /// Creates an action that will launch the given application (specified by
 /// MDesktopEntry) with the \a params the way the application specifies in
 /// their .desktop file.
@@ -261,5 +274,6 @@ Action Action::launcherAction(QSharedPointer<MDesktopEntry> mDesktop, const QStr
 {
     return createAction(mDesktop, params);
 }
+#endif
 
 } // end namespace

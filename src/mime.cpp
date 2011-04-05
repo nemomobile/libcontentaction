@@ -40,8 +40,6 @@
 #include <QDBusInterface>
 #include <QDBusPendingCall>
 
-#include <MDesktopEntry>
-
 namespace ContentAction {
 
 using namespace ContentAction::Internal;

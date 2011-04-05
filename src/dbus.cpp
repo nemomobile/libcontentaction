@@ -22,8 +22,8 @@
 #include "internal.h"
 
 #ifdef WITH_LIBMEEGOTOUCH
+
 #include <MDesktopEntry>
-#endif
 
 #include <QVariantList>
 #include <QDBusConnection>
@@ -123,3 +123,5 @@ void DBusPrivate::trigger(bool wait) const
 }
 
 } // end namespace ContentAction
+
+#endif // WITH_LIBMEEGOTOUCH

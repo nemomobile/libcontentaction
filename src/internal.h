@@ -28,6 +28,7 @@ struct ActionPrivate
     virtual void trigger(bool wait) const;
 };
 
+#ifdef WITH_LIBMEEGOTOUCH
 struct DefaultPrivate : public ActionPrivate
 {
     DefaultPrivate(QSharedPointer<MDesktopEntry> desktopEntry,
@@ -72,9 +73,11 @@ struct ExecPrivate : public DefaultPrivate {
     GAppInfo *appInfo;
 };
 
-Action createAction(const QString& desktopFilePath,
-                    const QStringList& params);
 Action createAction(QSharedPointer<MDesktopEntry> desktopEntry,
+                    const QStringList& params);
+#endif
+
+Action createAction(const QString& desktopFilePath,
                     const QStringList& params);
 
 // our pseudo mimetype classes

@@ -20,6 +20,8 @@
 #include "contentaction.h"
 #include "internal.h"
 
+#ifdef WITH_LIBMEEGOTOUCH
+
 #include <QRegExp>
 #include <QGraphicsGridLayout>
 #include <QDebug>
@@ -258,5 +260,7 @@ void ContentAction::dehighlightLabel(MLabel *label)
 }
 
 Q_DECLARE_METATYPE(ContentAction::Action);
+
+#endif // WITH_LIBMEEGOTOUCH
 
 #include "highlight.moc"

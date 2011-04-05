@@ -21,6 +21,8 @@
 
 #include "internal.h"
 
+#ifdef WITH_LIBMEEGOTOUCH
+
 #include <MDesktopEntry>
 
 #include <QFileInfo>
@@ -68,3 +70,5 @@ void ExecPrivate::trigger(bool) const
 }
 
 } // end namespace ContentAction
+
+#endif // WITH_LIBMEEGOTOUCH

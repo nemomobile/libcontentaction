@@ -30,6 +30,8 @@ class QDBusInterface;
 namespace ContentAction
 {
 
+#ifdef WITH_LIBMEEGOTOUCH
+
 class ServiceResolver : public QObject
 {
     Q_OBJECT
@@ -51,6 +53,8 @@ private:
 };
 
 ServiceResolver& resolver();
+
+#endif
 
 }
 #endif

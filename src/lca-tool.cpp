@@ -27,7 +27,10 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QFileInfo>
+
+#ifdef WITH_LIBMEEGOTOUCH
 #include <MLocale>
+#endif
 
 using namespace ContentAction;
 using namespace ContentAction::Internal;
@@ -195,6 +198,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
+#ifdef WITH_LIBMEEGOTOUCH
     char *l10npaths = getenv("CONTENTACTION_L10N_PATH");
     if (l10npaths) {
         Q_FOREACH (const QString& p, QString::fromLocal8Bit(l10npaths).split(':')) {
@@ -204,6 +208,7 @@ int main(int argc, char **argv)
     } else {
         MLocale::addTranslationPath("/usr/share/l10n/meegotouch");
     }
+#endif
 
     QStringList args;
     for (int i = 1; i < argc; ++i)

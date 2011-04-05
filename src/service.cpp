@@ -23,8 +23,8 @@
 #include "internal.h"
 
 #ifdef WITH_LIBMEEGOTOUCH
+
 #include <MDesktopEntry>
-#endif
 
 #include <QDBusInterface>
 #include <QDBusMessage>
@@ -54,8 +54,7 @@ void ServiceFwPrivate::trigger(bool wait) const
     if (!proxy)
         return;
     QDBusPendingCallWatcher watcher(proxy->asyncCall(method, params));
-
-    if (wait) {
+ (wait) {
         watcher.waitForFinished();
         if (watcher.isError()) {
             LCA_WARNING << "error reply from service implementor"
@@ -184,3 +183,6 @@ QDBusInterface *ServiceResolver::implementorForAction(const QString& action,
 }
 
 }
+
+#endif // WITH_LIBMEEGOTOUCH
+
