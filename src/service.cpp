@@ -54,7 +54,8 @@ void ServiceFwPrivate::trigger(bool wait) const
     if (!proxy)
         return;
     QDBusPendingCallWatcher watcher(proxy->asyncCall(method, params));
- (wait) {
+
+    if (wait) {
         watcher.waitForFinished();
         if (watcher.isError()) {
             LCA_WARNING << "error reply from service implementor"
