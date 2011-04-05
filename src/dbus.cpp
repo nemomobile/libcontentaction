@@ -21,7 +21,9 @@
 
 #include "internal.h"
 
+#ifdef WITH_LIBMEEGOTOUCH
 #include <MDesktopEntry>
+#endif
 
 #include <QVariantList>
 #include <QDBusConnection>

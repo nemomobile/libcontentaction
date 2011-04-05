@@ -13,6 +13,12 @@ AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
 AC_PROG_QT_MOC
 
+AC_ARG_WITH([libmeegotouch],
+            [AS_HELP_STRING([--without-libmeegotouch],
+              [disable support for libmeegotouch])],
+            [],
+            [with_libmeegotouch=yes])
+
 # check for libraries
 PKG_CHECK_MODULES([QtTest], [QtTest])
 PKG_CHECK_MODULES([QtCore], [QtCore])
@@ -20,7 +26,11 @@ PKG_CHECK_MODULES([QtXml], [QtXml])
 PKG_CHECK_MODULES([QtDBus], [QtDBus])
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.12.0])
 PKG_CHECK_MODULES([GIO], [gio-2.0 gio-unix-2.0])
-PKG_CHECK_MODULES([MT], [meegotouch >= 0.20])
+
+if test "x$with_libmeegotouch" != xno; then
+  AC_DEFINE(WITH_LIBMEEGOTOUCH)
+  PKG_CHECK_MODULES([MT], [meegotouch >= 0.20])
+fi
 
 # tools for documentation
 AX_FEATURE_DISABLEABLE([doc], [BUILD_DOCS], [disable building of documentation])

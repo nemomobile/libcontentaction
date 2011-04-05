@@ -23,8 +23,11 @@
 #include "internal.h"
 #include "service.h"
 
-#include <MDesktopEntry>
 #include <QFileInfo>
+
+#ifdef WITH_LIBMEEGOTOUCH
+#include <MDesktopEntry>
+#endif
 
 /*!
   \class ContentAction::Action
@@ -97,7 +100,7 @@ void ActionPrivate::trigger(bool) const
     LCA_WARNING << "triggered an invalid action, not doing anything.";
 }
 
-DefaultPrivate::DefaultPrivate(QSharedPointer<MDesktopEntry> desktopEntry,
+DefaultPrivate::DefaultPrivate(GKeyFile *desktopEntry,
                                const QStringList& params, bool valid)
     : desktopEntry(desktopEntry), params(params), valid(valid)
 {
@@ -105,6 +108,7 @@ DefaultPrivate::DefaultPrivate(QSharedPointer<MDesktopEntry> desktopEntry,
 
 DefaultPrivate::~DefaultPrivate()
 {
+    g_key_file_free (desktop_entry);
 }
 
 bool DefaultPrivate::isValid() const

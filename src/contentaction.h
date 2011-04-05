@@ -36,8 +36,10 @@
 # endif
 #endif
 
+#ifdef WITH_LIBMEEGOTOUCH
 class MLabel;
 class MDesktopEntry;
+#endif
 
 namespace ContentAction
 {
@@ -68,8 +70,10 @@ public:
     static QList<Action> actionsForString(const QString& param);
 
     static Action launcherAction(const QString& app, const QStringList& params);
+#ifdef WITH_LIBMEEGOTOUCH
     static Action launcherAction(QSharedPointer<MDesktopEntry>,
                                  const QStringList& params);
+#endif
 
     static QList<Match> highlight(const QString& text);
 
@@ -88,8 +92,10 @@ private:
 
     friend Action createAction(const QString& desktopFilePath,
                                const QStringList& params);
+#ifdef WITH_LIBMEEGOTOUCH
     friend Action createAction(QSharedPointer<MDesktopEntry> desktopEntry,
                                const QStringList& params);
+#endif
 };
 
 struct LCA_EXPORT Match {
@@ -105,9 +111,11 @@ LCA_EXPORT void setMimeDefault(const QString& mimeType, const Action& action);
 LCA_EXPORT void setMimeDefault(const QString& mimeType, const QString& app);
 LCA_EXPORT void resetMimeDefault(const QString& mimeType);
 
+#ifdef WITH_LIBMEEGOTOUCH
 LCA_EXPORT void highlightLabel(MLabel *label);
 LCA_EXPORT void highlightLabel(MLabel *label, QStringList typesToHighlight);
 LCA_EXPORT void dehighlightLabel(MLabel *label);
+#endif
 
 } // end namespace
 #endif
