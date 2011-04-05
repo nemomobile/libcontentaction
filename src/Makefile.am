@@ -1,9 +1,9 @@
 SUFFIXES = .cpp .h .moc.cpp
 
 .cpp.moc:
-	$(MOC) -o "$@" "$<"
+	$(MOC) $(DEFS) -o "$@" "$<"
 .h.moc.cpp:
-	$(MOC) -o "$@" "$<"
+	$(MOC) $(DEFS) -o "$@" "$<"
 
 EXTRA_DIST = \
 	doc.h
